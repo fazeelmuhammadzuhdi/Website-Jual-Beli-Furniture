@@ -33,7 +33,7 @@ class ProductController extends Controller
                     </a> 
 
                     <form class="inline-block" action="' . route('dashboard.product.destroy', $item->id) . '" method="POST">
-                    <button class="border border-red-500 bg-red-500 text-red-700 rounded-md px-2 py-1 ml-3 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline" >
+                    <button class="border border-green-700 bg-green-500 text-white rounded-md px-2 py-1 ml-3 transition duration-500 ease select-none hover:bg-green-500 focus:outline-none focus:shadow-outline">
                         Hapus
                     </button>
                         ' . method_field('delete') . csrf_field() . '
@@ -108,6 +108,7 @@ class ProductController extends Controller
     public function update(ProductRequest $request, Product $product)
     {
         $data = $request->all();
+
         $data['slug'] = Str::slug($request->name);
 
         $product->update($data);
@@ -123,6 +124,9 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        // $data = Product::findOrFail($id);
+        // $data->delete();
+
         $product->delete();
 
         return redirect()->route('dashboard.product.index');
